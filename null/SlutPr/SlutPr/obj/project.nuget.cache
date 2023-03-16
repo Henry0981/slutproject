@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "rIHf97XfmCMWaQkYYDiI6sQak3y5529Af+lNDrK+4G26LfDV+OcXAkRw5zYa65rWlqF6PjLP5jWhbdtkVCVSFA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\henry.gillinger\\vis stud\\slutproject\\null\\SlutPr\\SlutPr\\SlutPr.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\henry.gillinger\\.nuget\\packages\\raylib-cs\\4.2.0.1\\raylib-cs.4.2.0.1.nupkg.sha512",
+    "C:\\Users\\henry.gillinger\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
