@@ -48,7 +48,7 @@ while (!Raylib.WindowShouldClose())
     Raylib.ClearBackground(Color.GREEN);
 
     // Raylib.DrawRectangleRec(player.spriteBox, player.color);
-
+           
     player.Draw();
 
     Raylib.EndDrawing();

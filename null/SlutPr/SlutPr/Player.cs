@@ -8,18 +8,22 @@ public class Player
     public Vector2 pos;
     public Color color = Color.DARKGREEN;
 
-    public Rectangle spriteBox = new Rectangle(100, 100, 200, 200);
+    public Rectangle spriteBox = new Rectangle(100, 100, 150, 150);
 
     public Texture2D leftSheet;
+
+    public Texture2D rightsheet; 
     public int leftMaxFrames;
+
+    public int rightMaxFrames;
 
     public int maxFrames;
 
-    public Texture2D[] sprint;
+    // public Texture2D[] sprint;
 
-    public Texture2D[] sprint2;
+    // public Texture2D[] sprint2;
 
-    public Texture2D[] sprint3;
+    // public Texture2D[] sprint3;
 
     int currentFrame = 0;
 
@@ -29,34 +33,39 @@ public class Player
 
     Rectangle sourceRect;
 
-
+    Rectangle sourceRect2;
 
     public Player()
     {
-        leftSheet = Raylib.LoadTexture(@"dmitri\leftSheet.png");
+        leftSheet = Raylib.LoadTexture(@"Knight/leftSheet.png");
         leftMaxFrames = leftSheet.width / leftSheet.height;
 
         sourceRect = new Rectangle(0, 0, leftSheet.height, leftSheet.height);
 
-        sprint = new Texture2D[] {
-            Raylib.LoadTexture("dimitri1.png"),
-            Raylib.LoadTexture("dimitri(1).png"),
-            Raylib.LoadTexture("dimitri2.png"),
-            Raylib.LoadTexture("dimitri3.png")
-        };
-        sprint2 = new Texture2D[] {
-            Raylib.LoadTexture("2dimitri-1.png"),
-            Raylib.LoadTexture("2dimitri-2.png"),
-            Raylib.LoadTexture("2dimitri-1.png"),
-            Raylib.LoadTexture("2dimitri-3.png")
-        };
+        rightsheet=Raylib.LoadTexture(@"Knight/rightsheet.png");
+        rightMaxFrames = rightsheet.width/rightsheet.height;
 
-        sprint3 = new Texture2D[] {
-            Raylib.LoadTexture("3dimitri1.png"),
-            Raylib.LoadTexture("3dimitri2.png"),
-            Raylib.LoadTexture("3dimitri3.png"),
-            Raylib.LoadTexture("3dimitri4.png")
-        };
+        sourceRect2 = new Rectangle(0, 0, rightsheet.height, rightsheet.height);
+
+        // sprint = new Texture2D[] {
+        //     Raylib.LoadTexture("dimitri1.png"),
+        //     Raylib.LoadTexture("dimitri(1).png"),
+        //     Raylib.LoadTexture("dimitri2.png"),
+        //     Raylib.LoadTexture("dimitri3.png")
+        // };
+        // sprint2 = new Texture2D[] {
+        //     Raylib.LoadTexture("2dimitri-1.png"),
+        //     Raylib.LoadTexture("2dimitri-2.png"),
+        //     Raylib.LoadTexture("2dimitri-1.png"),
+        //     Raylib.LoadTexture("2dimitri-3.png")
+        // };
+
+        // sprint3 = new Texture2D[] {
+        //     Raylib.LoadTexture("3dimitri1.png"),
+        //     Raylib.LoadTexture("3dimitri2.png"),
+        //     Raylib.LoadTexture("3dimitri3.png"),
+        //     Raylib.LoadTexture("3dimitri4.png")
+        // };
     }
 
     public void Draw()
@@ -65,7 +74,7 @@ public class Player
         {
             if (dire == Direction.righ)
             {
-                Raylib.DrawTexture(sprint[0], (int)spriteBox.x, (int)spriteBox.y, Color.WHITE);
+                // Raylib.DrawTexture(sprint[0], (int)spriteBox.x, (int)spriteBox.y, Color.WHITE);
             }
         }
         if (state == 1)
@@ -83,26 +92,43 @@ public class Player
             }
             if (dire == Direction.righ)
             {
-                Raylib.DrawTexture(sprint[currentFrame], (int)spriteBox.x, (int)spriteBox.y, Color.WHITE);
-            }
-            else if (dire == Direction.lef)
-            {
+
                 sourceRect.x = currentFrame * sourceRect.width;
 
                 Raylib.DrawTexturePro(leftSheet, sourceRect, spriteBox, Vector2.Zero, 0, Color.WHITE);
+
+                // Raylib.DrawTexture(sprint[currentFrame], (int)spriteBox.x, (int)spriteBox.y, Color.WHITE);
+            }
+            else if (dire == Direction.lef)
+            {
+                
+                sourceRect2.x = currentFrame * sourceRect2.width;
+
+                Raylib.DrawTexturePro(rightsheet, sourceRect2, spriteBox, Vector2.Zero, 0, Color.WHITE);
 
                 // Raylib.DrawTexture(sprint2[currentFrame], (int)spriteBox.x, (int)spriteBox.y, Color.WHITE);
             }
 
             else if (dire == Direction.dow)
             {
-                Raylib.DrawTexture(sprint3[currentFrame], (int)spriteBox.x, (int)spriteBox.y, Color.WHITE);
+                // Raylib.DrawTexture(
+                    // sprint3[currentFrame], (int)spriteBox.x, (int)spriteBox.y, Color.WHITE);
             }
-        }
+
+
+        }   
 
     }
     public enum Direction
     {
         up, dow, lef, righ
     }
+
+
+
+    // skapa en rectangel
+    // se till så att den sitter framför spelaren hela tiden
+    // ge den collsion när man klickar på en knapp. 
+
+    public Rectangle sword;
 }
