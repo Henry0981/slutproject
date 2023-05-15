@@ -2,14 +2,26 @@ using Raylib_cs;
 using System.Numerics;
 
 public class Player
+
 {
     public int state = 0; // 0 = idle 1 = walk
+
+    public int hp = 5;
+
+    public int attackstate=0;
+    public bool isAttacking = false;
+    float speed = 3.6f;
+    public Vector2 positionBefore;
     public Vector2 pos;
     public Color color = Color.DARKGREEN;
 
-    public Rectangle spriteBox = new Rectangle(100, 100, 150, 150);
+    public Rectangle spriteBox = new Rectangle(660, 700, 150, 150);
+    Vector2 normalSpriteBox = new Vector2(150, 150);
+    Vector2 extendedSpriteBox = new Vector2(300, 150);
 
     public Rectangle sword = new Rectangle(0, 0, 60, 110);
+
+    public Texture2D attacksheetright;
 
     public Texture2D leftSheet;
 
@@ -37,6 +49,10 @@ public class Player
 
     public int maxFrames;
 
+    public int attackmaxframes;
+
+
+
     // public Texture2D[] sprint;
 
     // public Texture2D[] sprint2;
@@ -57,7 +73,11 @@ public class Player
 
     Rectangle sourceRect4;
 
-    public Color swordColor = Color.PINK; 
+    Rectangle sourceRect5;
+
+    Texture2D walkingSpriteSheet;
+  
+    public Color swordColor;
 
     public Player()
     {
@@ -90,6 +110,9 @@ public class Player
 
         Idledow = Raylib.LoadTexture(@"Knight/forwardIdleknight.png");
 
+      
+
+       
 
 
         // sprint = new Texture2D[] {
@@ -109,14 +132,53 @@ public class Player
         //     Raylib.LoadTexture("3dimitri1.png"),
         //     Raylib.LoadTexture("3dimitri2.png"),
         //     Raylib.LoadTexture("3dimitri3.png"),
-        //     Raylib.LoadTexture("3dimitri4.png")
+        //     Raylib.LoadTexture("3d(imitri4.png")
         // };
+
     }
 
+    public void Update()
+    {
+        state = 0;
+        positionBefore = new Vector2(spriteBox.x, spriteBox.y);
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
+        {
+            dire = Direction.left;
+            state = 1;
+            spriteBox.x -= speed;
+        }
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
+        {
+            dire = Direction.right;
+            state = 1;
+            spriteBox.x += speed;
+
+        }
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
+        {
+            dire = Direction.up;
+            state = 1;
+            spriteBox.y -= speed;
+
+        }
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
+
+        {
+            dire = Direction.down;
+            state = 1;
+            spriteBox.y += speed;
+        }
+
+
+        //Console.WriteLine(spriteBox.y);
+
+    }
     public void Draw()
     {
         if (state == 0)
         {
+            spriteBox.width = normalSpriteBox.X;
+            spriteBox.height = normalSpriteBox.Y;
             if (dire == Direction.right)
             {
                 // Raylib.DrawTexture(sprint[0], (int)spriteBox.x, (int)spriteBox.y, Color.WHITE);
@@ -136,7 +198,7 @@ public class Player
 
             }
 
-            else if (dire == Direction.dow)
+            else if (dire == Direction.down)
             {
 
                 Raylib.DrawTexturePro(Idledow, new Rectangle(0, 0, Idledow.width, Idledow.height), spriteBox, Vector2.Zero, 0, Color.WHITE);
@@ -147,8 +209,11 @@ public class Player
         }
         if (state == 1)
         {
+            spriteBox.width = normalSpriteBox.X;
+            spriteBox.height = normalSpriteBox.Y;
 
             subFrameCounter++;
+
             if (subFrameCounter == 10)
             {
                 subFrameCounter = 0;
@@ -176,25 +241,25 @@ public class Player
 
                 // Raylib.DrawTexture(sprint2[currentFrame], (int)spriteBox.x, (int)spriteBox.y, Color.WHITE);
             }
-
-            else if (dire == Direction.dow)
-            {
-                // Raylib.DrawTexture(
-                // sprint3[currentFrame], (int)spriteBox.x, (int)spriteBox.y, Color.WHITE);
-
-                sourceRect3.x = currentFrame * sourceRect3.width;
-
-                Raylib.DrawTexturePro(downsheet, sourceRect3, spriteBox, Vector2.Zero, 0, Color.WHITE);
-            }
-
             else if (dire == Direction.up)
             {
 
-                sourceRect4.x = currentFrame * sourceRect4.width;
+                sourceRect.x = currentFrame * sourceRect.width;
 
-                Raylib.DrawTexturePro(upsheet, sourceRect4, spriteBox, Vector2.Zero, 0, Color.WHITE);
+                Raylib.DrawTexturePro(upsheet, sourceRect, spriteBox, Vector2.Zero, 0, Color.WHITE);
 
+                // Raylib.DrawTexture(sprint[currentFrame], (int)spriteBox.x, (int)spriteBox.y, Color.WHITE);
             }
+            else if (dire == Direction.down)
+            {
+
+                sourceRect2.x = currentFrame * sourceRect2.width;
+
+                Raylib.DrawTexturePro(downsheet, sourceRect2, spriteBox, Vector2.Zero, 0, Color.WHITE);
+
+                // Raylib.DrawTexture(sprint2[currentFrame], (int)spriteBox.x, (int)spriteBox.y, Color.WHITE);
+            }
+
 
 
         }
@@ -203,7 +268,7 @@ public class Player
     }
     public enum Direction
     {
-        up, dow, left, right
+        up, down, left, right,
     }
 
 
@@ -226,11 +291,11 @@ public class Player
         else if (dire == Direction.up)
         {
 
-            sword.y = spriteBox.y - 70;
+            sword.y = spriteBox.y - 100;
             sword.x = spriteBox.x + 45;
         }
 
-        else if (dire == Direction.dow)
+        else if (dire == Direction.down)
 
         {
 
@@ -243,3 +308,4 @@ public class Player
     }
 
 }
+

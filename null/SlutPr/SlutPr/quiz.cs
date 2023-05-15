@@ -6,3 +6,7 @@
 //     good_or_evil += 1.0f;
 //     order_or_chaos -= 1.0f;
 // }
+//var aOne;
+//var aTwo
+//var aThree
+//var aFour
